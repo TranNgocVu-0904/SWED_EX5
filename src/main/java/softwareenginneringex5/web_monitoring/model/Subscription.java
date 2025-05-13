@@ -1,0 +1,78 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package softwareenginneringex5.web_monitoring.model;
+
+import softwareenginneringex5.web_monitoring.notifier.*;
+
+public class Subscription 
+{
+    private String subscriptionId;
+
+    private String frequency;
+    private String channel;
+
+    private boolean isActive;
+    private Website website;
+
+    private User user;
+
+    private Notifier notifier;
+        
+    private static int idCounter = 0; //Count to generate auto-increment ID
+    
+    public Subscription(String frequency, String channel, boolean isActive, Website website, User user, Notifier notifier)
+    {
+        this.subscriptionId = generateSubscriptionId();
+        this.frequency = frequency;
+        this.channel = channel;
+        this.isActive = isActive;
+        this.website = website;
+        this.user = user;
+        this.notifier = notifier;
+    }
+    
+    private String generateSubscriptionId() 
+    {
+        return "SUB" + (++idCounter);  //Create ID in the form "SUB1", "SUB2", ...
+    }
+    
+    public String getSubscriptionId()
+    {
+        return subscriptionId;
+    }
+    
+    public void modify(String frequency, String channel) 
+    {
+        this.frequency = frequency;
+        this.channel = channel;
+    }
+
+    public void cancel() 
+    {
+        isActive = false;
+    }
+
+    public boolean isActive() 
+    {
+        return isActive;
+    }
+
+    public Website getWebsite() 
+    {
+        return website;
+    }
+
+    public Notifier getNotifier()
+    {
+        return notifier;
+    }
+
+    public User getUser() 
+    {
+        return user;
+    }    
+}
+
+
