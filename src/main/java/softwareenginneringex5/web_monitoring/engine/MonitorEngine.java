@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package softwareenginneringex5.web_monitoring.engine;
 
 import softwareenginneringex5.web_monitoring.model.*;
@@ -18,18 +14,24 @@ public class MonitorEngine
         this.users = users;
     }
 
-    public void checkWebsites() {
+    public void checkWebsites() 
+    {
         System.out.println("Checking websites for updates...");
         notifications.clear();
 
         for (User user : users) {
-            for (Subscription sub : user.getSubscriptions()) {
+            for (Subscription sub : user.getSubscriptions()) 
+            {
                 if (!sub.isActive()) continue;
 
-                if (sub.getWebsite().hasChangedSinceLastCheck()) {
+                if (sub.getWebsite().hasChangedSinceLastCheck()) 
+                {
                     String message = "Website updated: " + sub.getWebsite().getUrl();
+                    
                     Notification notification = new Notification(message);
+                    
                     notifications.add(notification);
+                    
                     sub.getNotifier().send(user, notification);
 
                     System.out.println("[CHANGE DETECTED] " + message);
@@ -37,8 +39,7 @@ public class MonitorEngine
             }
         }
     }
-
-
+    
     public List<Notification> getNotifications() 
     {
         return notifications;

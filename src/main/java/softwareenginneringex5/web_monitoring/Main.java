@@ -28,33 +28,40 @@ public class Main {
         List<User> users = new ArrayList<>();
         users.add(user);
         
+        
+        // Save content to file "google.html"
         w1.saveContentToFile("google.html");
 
         // Create engine
         MonitorEngine engine = new MonitorEngine(users);
 
         // Simulate multiple periodic checks
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 3; i++) 
+        {
             System.out.println("\n===== Check #" + i + " =====");
             engine.checkWebsites();
 
             List<Notification> sentNotifications = engine.getNotifications();
             System.out.println("Number of notifications sent: " + sentNotifications.size());
 
-            // In nội dung các thông báo đã gửi
-            for (Notification n : sentNotifications) {
+            // Print the content of sent notifications
+            for (Notification n : sentNotifications) 
+            {
                 System.out.println("Notification: " + n.getMessage());
             }
-
+            
             // Sleep for a few seconds before the next check
-            try {
+            try 
+            {
                 Thread.sleep(5000);  // 5 seconds
-            } catch (InterruptedException e) {
+            } 
+            catch (InterruptedException e) 
+            {
                 e.printStackTrace();
             }
         }
 
-        // In ra subscription còn lại
+        // Print out the remaining subscription
         System.out.println("Remaining subscriptions:");
         
         for (Subscription sub : user.getSubscriptions()) 

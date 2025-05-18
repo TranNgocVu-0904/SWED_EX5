@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package softwareenginneringex5.web_monitoring.model;
 
 import softwareenginneringex5.web_monitoring.notifier.*;
@@ -48,15 +44,15 @@ public class Subscription
         this.frequency = frequency;
         this.channel = channel;
     }
+    
+    public boolean isActive() 
+    {
+        return isActive;
+    }
 
     public void cancel() 
     {
         isActive = false;
-    }
-
-    public boolean isActive() 
-    {
-        return isActive;
     }
 
     public Website getWebsite() 

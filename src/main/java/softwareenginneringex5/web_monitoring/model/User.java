@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package softwareenginneringex5.web_monitoring.model;
 
 import softwareenginneringex5.web_monitoring.notifier.*;
 
 import java.util.*;
 
-public class User {
+public class User 
+{
     private String userId;
     private String name;
     private String email;
@@ -57,16 +54,17 @@ public class User {
     {
         return subscriptions;
     }
+    
     public void notifyUser(String message) 
     {
-    for (Subscription sub : subscriptions) 
-    {
-        if (sub.isActive()) 
+        for (Subscription sub : subscriptions) 
         {
+            if (sub.isActive()) 
+            {
             Notification notification = new Notification(message);
-            sub.getNotifier().send(sub.getUser(), notification); // Giả sử Notifier có hàm send()
+            
+            sub.getNotifier().send(sub.getUser(), notification);
+            }
         }
-    }
-}
-        
+    }       
 }
