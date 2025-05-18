@@ -6,8 +6,9 @@ package softwareenginneringex5.web_monitoring.notifier;
 
 import softwareenginneringex5.web_monitoring.model.*;
 
-public abstract class Notifier 
+public interface Notifier 
 {
-    public abstract void sendNotification(Notification notification, User user);
+    void send(User user, Notification notification);
 }
+
 

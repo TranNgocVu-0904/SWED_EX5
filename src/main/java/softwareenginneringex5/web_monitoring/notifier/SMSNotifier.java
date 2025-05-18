@@ -1,25 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package softwareenginneringex5.web_monitoring.notifier;
 
 import softwareenginneringex5.web_monitoring.model.*;
 
-public class SMSNotifier extends Notifier 
-{
+public class SMSNotifier implements Notifier {
+    private String smsGatewayUrl;
     private String apiKey;
-    private String senderNumber;
+    private String senderId;
 
-    public void setSender(String number)
-    {
-        this.senderNumber = number;
+    public void configureGateway(String gatewayUrl, String apiKey) {
+        this.smsGatewayUrl = gatewayUrl;
+        this.apiKey = apiKey;
+        System.out.println("Configured SMS Gateway: " + gatewayUrl + " | API Key: " + apiKey);
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+        System.out.println("Set SMS Sender ID: " + senderId);
     }
 
     @Override
-    public void sendNotification(Notification notification, User user) 
-    {
-        System.out.println("Sending SMS to " + user.getPhoneNumber() + ": " + notification.getMessage());
+    public void send(User user, Notification notification) {
+        // Mô phỏng gửi tin nhắn SMS
+        System.out.println("Sending SMS to " + user.getPhoneNumber());
+        System.out.println("From: " + senderId);
+        System.out.println("Message: " + notification.getMessage());
     }
 }
-

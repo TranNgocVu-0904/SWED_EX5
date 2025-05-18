@@ -1,46 +1,96 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package softwareenginneringex5.web_monitoring.model;
 
-import softwareenginneringex5.web_monitoring.*;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
-import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+
+
 
 public class Website {
     private String url;
     private String lastContent;
-    private Random random = new Random(); //Using Random for creating random version of the website
 
-    public Website(String url) 
-    {
+    public Website(String url) {
         this.url = url;
-        this.lastContent = getLatestContent(); //Initializing beginning content
+        this.lastContent = fetchContentFromUrl(); // tải nội dung ban đầu
     }
 
-    public String getLatestContent() 
-    {
-        int version = random.nextInt(3); //Create random number from 0 to 2
-        return "Mock content version " + version;
-    }
+    public boolean hasChangedSinceLastCheck() {
+        String newContent = fetchContentFromUrl(); // lấy nội dung mới
 
-    public boolean hasChangedSinceLastCheck()
-    {
-        String currentContent = getLatestContent();
-        
-        boolean changed = !currentContent.equals(lastContent);
-
-        if (changed) 
+        if (!newContent.equals(this.lastContent)) 
         {
-            lastContent = currentContent; //Update the content
+            System.out.println("Website đã thay đổi!");
+            
+            System.out.println("Nội dung cũ:");
+            
+            System.out.println(this.lastContent.substring(0, Math.min(300, this.lastContent.length()))); // chỉ in 300 ký tự đầu
+            
+            System.out.println("Nội dung mới:");
+            
+            System.out.println(newContent.substring(0, Math.min(300, newContent.length())));
+
+            this.lastContent = newContent; // cập nhật lại
+            return true;
         }
-        return changed;
+
+        System.out.println("Không có thay đổi.");
+        return false;
     }
 
-    public String getUrl() 
+
+    public String fetchContentFromUrl() {
+        try {
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
+                    .build();
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            return response.body();
+
+        } catch (Exception e) {
+            return "Error fetching content: " + e.getMessage();
+        }
+    }
+    
+    public void saveContentToFile(String filePath) 
+    {
+        try
+        {
+            String content = fetchContentFromUrl();
+            Files.write(Paths.get(filePath), content.getBytes());
+            System.out.println("Website content saved to " + filePath);
+        } 
+        catch (Exception e)
+        {
+        System.out.println("Failed to save content: " + e.getMessage());
+        }
+    }
+
+    public String getUrl()
     {
         return url;
     }
-}
+    
+    public String getLastContent() 
+    {
+        return lastContent;
+    }
 
+    public void setLastContent(String lastContent) 
+    {
+        this.lastContent = lastContent;
+    }
+
+}

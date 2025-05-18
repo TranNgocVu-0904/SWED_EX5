@@ -57,4 +57,16 @@ public class User {
     {
         return subscriptions;
     }
+    public void notifyUser(String message) 
+    {
+    for (Subscription sub : subscriptions) 
+    {
+        if (sub.isActive()) 
+        {
+            Notification notification = new Notification(message);
+            sub.getNotifier().send(sub.getUser(), notification); // Giả sử Notifier có hàm send()
+        }
+    }
+}
+        
 }

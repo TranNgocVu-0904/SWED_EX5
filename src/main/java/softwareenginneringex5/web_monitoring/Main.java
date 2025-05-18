@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package softwareenginneringex5.web_monitoring;
 
 import softwareenginneringex5.web_monitoring.model.*;
@@ -11,57 +7,59 @@ import softwareenginneringex5.web_monitoring.engine.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
 
-        //Initialize object Website 
-        Website w1 = new Website("https://example.com");
+        // Initialize a real website to monitor
+        Website w1 = new Website("https://google.com");
 
-        //Simulate user and notification methods       
+
+        // Create an EmailNotifier
         EmailNotifier emailNotifier = new EmailNotifier();
-
-        emailNotifier.configureServer("smtp.example.com", 587);
-
+        emailNotifier.configureServer("smtp.example.com", 587);  // dummy SMTP server
         emailNotifier.setFromAddress("noreply@example.com");
 
+        // Create a user
         User user = new User("U001", "Alice", "alice@example.com", "+9876543210");
-        
+
+        // User subscribes to the website with email notification
         user.subscribe(w1, "daily", "email", emailNotifier);
 
+        // Add user to list
         List<User> users = new ArrayList<>();
-
         users.add(user);
+        
+        w1.saveContentToFile("google.html");
 
+        // Create engine
         MonitorEngine engine = new MonitorEngine(users);
 
-        //Simulate periodic check
-        engine.checkWebsites();
+        // Simulate multiple periodic checks
+        for (int i = 1; i <= 3; i++) {
+            System.out.println("\n===== Check #" + i + " =====");
+            engine.checkWebsites();
 
-        // =============================
-        //Simulate website change testing
-        System.out.println("\n--- Manual Website Change Simulation ---");
+            List<Notification> sentNotifications = engine.getNotifications();
+            System.out.println("Number of notifications sent: " + sentNotifications.size());
+
+            // In nội dung các thông báo đã gửi
+            for (Notification n : sentNotifications) {
+                System.out.println("Notification: " + n.getMessage());
+            }
+
+            // Sleep for a few seconds before the next check
+            try {
+                Thread.sleep(5000);  // 5 seconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // In ra subscription còn lại
+        System.out.println("Remaining subscriptions:");
         
-        for (int i = 0; i < 5; i++) 
+        for (Subscription sub : user.getSubscriptions()) 
         {
-            boolean changed = w1.hasChangedSinceLastCheck();
-
-            System.out.println("Check #" + (i + 1) + " | Changed: " + changed + " | Content: " + w1.getLatestContent());
-        }
-
-        // =============================
-        //Simulate Subscription deletion
-        System.out.println("\n--- Deleting Subscription ---");
-
-        //Assuming that subscriptionId is "SUB1" (or whatever id you want)
-        user.deleteSubscription("SUB1");
-
-        // In ra thông tin các subscription còn lại sau khi xóa
-        System.out.println("\nRemaining subscriptions: ");
-
-        for (Subscription sub : user.getSubscriptions())
-        {
-            System.out.println("Subscription ID: " + sub.getSubscriptionId());
-        }
+            System.out.println("- ID: " + sub.getSubscriptionId() + ", Website: " + sub.getWebsite().getUrl());
+        }      
     }
 }
-

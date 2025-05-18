@@ -13,7 +13,7 @@ public class Subscription
     private String frequency;
     private String channel;
 
-    private boolean isActive;
+    private boolean isActive = true;
     private Website website;
 
     private User user;
