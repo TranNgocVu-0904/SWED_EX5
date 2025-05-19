@@ -1,19 +1,18 @@
 package softwareenginneringex5.web_monitoring.model;
 
 import softwareenginneringex5.web_monitoring.notifier.*;
+import softwareenginneringex5.web_monitoring.observer.Observers;
 
-public class Subscription 
+public class Subscription implements Observers
 {
     private String subscriptionId;
-
     private String frequency;
     private String channel;
-
+    
     private boolean isActive = true;
+
     private Website website;
-
     private User user;
-
     private Notifier notifier;
         
     private static int idCounter = 0; //Count to generate auto-increment ID
@@ -33,10 +32,10 @@ public class Subscription
     {
         return "SUB" + (++idCounter);  //Create ID in the form "SUB1", "SUB2", ...
     }
-    
-    public String getSubscriptionId()
-    {
-        return subscriptionId;
+
+    public String getSubscriptionId() 
+    { 
+        return subscriptionId; 
     }
     
     public void modify(String frequency, String channel) 
@@ -46,29 +45,36 @@ public class Subscription
     }
     
     public boolean isActive() 
-    {
-        return isActive;
+    { 
+        return isActive; 
     }
-
     public void cancel() 
-    {
-        isActive = false;
+    { 
+        isActive = false; 
     }
-
+    
     public Website getWebsite() 
-    {
+    { 
         return website;
     }
-
-    public Notifier getNotifier()
-    {
-        return notifier;
+    
+    public Notifier getNotifier() 
+    { 
+        return notifier; 
+    }
+    
+    public User getUser() 
+    { 
+        return user;
     }
 
-    public User getUser() 
+    // Method from Observer pattern
+    @Override
+    public void update(Notification notification)
     {
-        return user;
-    }    
+        if (isActive) 
+        {
+            notifier.send(user, notification);
+        }
+    }
 }
-
-

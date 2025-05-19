@@ -6,4 +6,6 @@ softwareenginneringex5/web_monitoring/notifier/SMSNotifier.class
 softwareenginneringex5/web_monitoring/model/Subscription.class
 softwareenginneringex5/web_monitoring/Main.class
 softwareenginneringex5/web_monitoring/model/User.class
+softwareenginneringex5/web_monitoring/observer/Subject.class
+softwareenginneringex5/web_monitoring/observer/Observers.class
 softwareenginneringex5/web_monitoring/model/Notification.class

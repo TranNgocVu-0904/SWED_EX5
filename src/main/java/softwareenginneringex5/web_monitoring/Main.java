@@ -9,51 +9,41 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        // Initialize a real website to monitor
+        // 1. Create the website to monitor
         Website w1 = new Website("https://google.com");
 
-
-        // Create an EmailNotifier
-        EmailNotifier emailNotifier = new EmailNotifier();
-        emailNotifier.configureServer("smtp.example.com", 587);  // dummy SMTP server
-        emailNotifier.setFromAddress("noreply@example.com");
-
-        // Create a user
-        User user = new User("U001", "Alice", "alice@example.com", "+9876543210");
-
-        // User subscribes to the website with email notification
-        user.subscribe(w1, "daily", "email", emailNotifier);
-
-        // Add user to list
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        
-        
-        // Save content to file "google.html"
+        // Save website content to html file
         w1.saveContentToFile("google.html");
 
-        // Create engine
-        MonitorEngine engine = new MonitorEngine(users);
+        // 2. Create a notifier (here we use EmailNotifier)
+        EmailNotifier emailNotifier = new EmailNotifier();
+        
+        emailNotifier.configureServer("smtp.example.com", 587);
+        
+        emailNotifier.setFromAddress("noreply@example.com");
 
-        // Simulate multiple periodic checks
-        for (int i = 1; i <= 3; i++) 
-        {
+        // 3. Create user
+        User user = new User("U001", "Alice", "alice@example.com", "+9876543210");
+
+        // 4. User subscribes to website with email notification
+        user.subscribe(w1, "daily", "email", emailNotifier);
+
+        // 5. Create a list of websites (according to the MonitorEngine code, you use the Website list)
+        List<Website> websites = new ArrayList<>();
+         
+        websites.add(w1);
+
+        // 6. Tạo MonitorEngine với danh sách website
+        MonitorEngine engine = new MonitorEngine(websites);
+
+        for (int i = 1; i <= 3; i++) {
             System.out.println("\n===== Check #" + i + " =====");
             engine.checkWebsites();
-
-            List<Notification> sentNotifications = engine.getNotifications();
-            System.out.println("Number of notifications sent: " + sentNotifications.size());
-
-            // Print the content of sent notifications
-            for (Notification n : sentNotifications) 
-            {
-                System.out.println("Notification: " + n.getMessage());
-            }
             
-            // Sleep for a few seconds before the next check
+           // Sleep 5 giây trước khi check tiếp
             try 
             {
-                Thread.sleep(5000);  // 5 seconds
+                Thread.sleep(5000);
             } 
             catch (InterruptedException e) 
             {
@@ -61,12 +51,12 @@ public class Main {
             }
         }
 
-        // Print out the remaining subscription
-        System.out.println("Remaining subscriptions:");
+        // 7. In ra các subscription hiện còn active của user
+        System.out.println("\nRemaining subscriptions: ");
         
         for (Subscription sub : user.getSubscriptions()) 
         {
             System.out.println("- ID: " + sub.getSubscriptionId() + ", Website: " + sub.getWebsite().getUrl());
-        }      
+        }
     }
 }

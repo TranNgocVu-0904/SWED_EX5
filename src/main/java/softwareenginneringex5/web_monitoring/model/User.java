@@ -20,27 +20,39 @@ public class User
         this.phoneNumber = phoneNumber;
     }
 
-    public void subscribe(Website website, String frequency, String channel, Notifier notifier)
+    public void subscribe(Website website, String frequency, String channel, Notifier notifier) 
     {
         Subscription sub = new Subscription(frequency, channel, true, website, this, notifier);
+        
         subscriptions.add(sub);
+
+        // Register this subscription as an Observer
+        website.registerObserver(sub);
     }
 
-    public void deleteSubscription(String subscriptionId) 
+    public void deleteSubscription(String subscriptionId)
     {
-        for (Subscription sub : subscriptions) 
+        Iterator<Subscription> iterator = subscriptions.iterator();
+        
+        while (iterator.hasNext())
         {
+            Subscription sub = iterator.next();
+            
             if (sub.getSubscriptionId().equals(subscriptionId)) 
             {
-                subscriptions.remove(sub);
+                // Unregister this subscription from the website
+                sub.getWebsite().removeObserver(sub);
+                
+                iterator.remove();
+                
                 System.out.println("Subscription with ID: " + subscriptionId + " has been deleted.");
                 return;
             }
         }
         System.out.println("Subscription with ID: " + subscriptionId + " not found.");
     }
-    
-    public String getEmail() 
+
+    public String getEmail()
     {
         return email;
     }
@@ -50,21 +62,22 @@ public class User
         return phoneNumber;
     }
 
-    public List<Subscription> getSubscriptions() 
+    public List<Subscription> getSubscriptions()
     {
         return subscriptions;
     }
-    
+
+    // Optional method, not directly needed if Observer Pattern works through Subscription
     public void notifyUser(String message) 
     {
         for (Subscription sub : subscriptions) 
         {
             if (sub.isActive()) 
             {
-            Notification notification = new Notification(message);
-            
-            sub.getNotifier().send(sub.getUser(), notification);
+                Notification notification = new Notification(message);
+                
+                sub.getNotifier().send(sub.getUser(), notification);
             }
         }
-    }       
+    }
 }

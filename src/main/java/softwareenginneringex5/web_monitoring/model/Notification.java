@@ -1,7 +1,5 @@
 package softwareenginneringex5.web_monitoring.model;
 
-import softwareenginneringex5.web_monitoring.*;
-
 import java.time.LocalDateTime;
 
 public class Notification 

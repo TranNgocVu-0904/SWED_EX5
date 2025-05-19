@@ -1,4 +1,6 @@
 /Users/tranngocvu942004/NetBeansProjects/SoftwareEnginneringEX5/src/main/java/softwareenginneringex5/web_monitoring/model/Website.java
+/Users/tranngocvu942004/NetBeansProjects/SoftwareEnginneringEX5/src/main/java/softwareenginneringex5/web_monitoring/observer/Subject.java
+/Users/tranngocvu942004/NetBeansProjects/SoftwareEnginneringEX5/src/main/java/softwareenginneringex5/web_monitoring/observer/Observers.java
 /Users/tranngocvu942004/NetBeansProjects/SoftwareEnginneringEX5/src/main/java/softwareenginneringex5/web_monitoring/model/Notification.java
 /Users/tranngocvu942004/NetBeansProjects/SoftwareEnginneringEX5/src/main/java/softwareenginneringex5/web_monitoring/model/User.java
 /Users/tranngocvu942004/NetBeansProjects/SoftwareEnginneringEX5/src/main/java/softwareenginneringex5/web_monitoring/engine/MonitorEngine.java

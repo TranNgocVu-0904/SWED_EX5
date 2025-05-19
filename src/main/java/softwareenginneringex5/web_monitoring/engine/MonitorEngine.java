@@ -4,44 +4,31 @@ import softwareenginneringex5.web_monitoring.model.*;
 
 import java.util.*;
 
-public class MonitorEngine 
+public class MonitorEngine
 {
-    private List<Notification> notifications = new ArrayList<>();
-    private List<User> users;
+    private List<Website> websites;
 
-    public MonitorEngine(List<User> users)
+    public MonitorEngine(List<Website> websites) 
     {
-        this.users = users;
+        this.websites = websites;
     }
 
-    public void checkWebsites() 
+    public void checkWebsites()
     {
         System.out.println("Checking websites for updates...");
-        notifications.clear();
 
-        for (User user : users) {
-            for (Subscription sub : user.getSubscriptions()) 
+        for (Website site : websites) 
+        {            
+            if (site.hasChangedSinceLastCheck()) // If changed, Website will automatically notifyObservers()
             {
-                if (!sub.isActive()) continue;
-
-                if (sub.getWebsite().hasChangedSinceLastCheck()) 
-                {
-                    String message = "Website updated: " + sub.getWebsite().getUrl();
-                    
-                    Notification notification = new Notification(message);
-                    
-                    notifications.add(notification);
-                    
-                    sub.getNotifier().send(user, notification);
-
-                    System.out.println("[CHANGE DETECTED] " + message);
-                }
+                System.out.println("Website " + site.getUrl() + " has changed!");
+                
+                site.saveContentToFile("updated_" +  site.getUrl() + ".html");
+            } 
+            else 
+            {
+                System.out.println("Website " + site.getUrl() + " has no changes.");
             }
         }
-    }
-    
-    public List<Notification> getNotifications() 
-    {
-        return notifications;
-    }
+    }   
 }
