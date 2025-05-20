@@ -33,7 +33,7 @@ public class Main {
          
         websites.add(w1);
 
-        // 6. Tạo MonitorEngine với danh sách website
+        // 6. Create MonitorEngine with list of websites
         MonitorEngine engine = new MonitorEngine(websites);
 
         for (int i = 1; i <= 3; i++) {
@@ -51,7 +51,7 @@ public class Main {
             }
         }
 
-        // 7. In ra các subscription hiện còn active của user
+        // 7. Print out the user's currently active subscriptions
         System.out.println("\nRemaining subscriptions: ");
         
         for (Subscription sub : user.getSubscriptions()) 
