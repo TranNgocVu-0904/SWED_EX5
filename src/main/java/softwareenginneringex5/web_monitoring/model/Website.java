@@ -1,5 +1,16 @@
 package softwareenginneringex5.web_monitoring.model;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import softwareenginneringex5.web_monitoring.observer.Observers;
 import softwareenginneringex5.web_monitoring.observer.Subject;
 
@@ -7,13 +18,6 @@ import softwareenginneringex5.web_monitoring.strategy.ComparisonStrategy;
 import softwareenginneringex5.web_monitoring.strategy.HtmlComparisonStrategy;
 import softwareenginneringex5.web_monitoring.strategy.SizeComparisonStrategy;
 import softwareenginneringex5.web_monitoring.strategy.TextComparisonStrategy;
-
-import java.util.*;
-
-import java.net.URI;
-import java.net.http.*;
-
-import java.nio.file.*;
 
 public class Website implements Subject 
 {

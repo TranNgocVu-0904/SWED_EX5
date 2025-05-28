@@ -2,7 +2,7 @@ package softwareenginneringex5.web_monitoring.engine;
 
 import softwareenginneringex5.web_monitoring.model.Website;
 
-import java.util.*;
+import java.util.List;
 
 public class MonitorEngine
 {

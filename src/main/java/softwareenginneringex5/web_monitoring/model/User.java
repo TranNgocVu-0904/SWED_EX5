@@ -2,7 +2,9 @@ package softwareenginneringex5.web_monitoring.model;
 
 import softwareenginneringex5.web_monitoring.notifier.Notifier;
 
-import java.util.*;
+import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 public class User 
 {
