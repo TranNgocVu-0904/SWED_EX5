@@ -52,14 +52,16 @@ public class Website implements Subject
             obj.update(new Notification(message));
         }
     }
-
+    
+    
     public boolean hasChangedSinceLastCheck() 
     {
         String newContent = fetchContentFromUrl();
+        
 
         boolean changed = !comparisonStrategy.isEqual(this.lastContent, newContent);
 
-        // Nếu là TextComparisonStrategy, luôn in nội dung
+        //Ensuring that text comparision is always print out the content
         if (comparisonStrategy instanceof TextComparisonStrategy) 
         {
             System.out.println("[Text Strategy] Visible text content: ");
