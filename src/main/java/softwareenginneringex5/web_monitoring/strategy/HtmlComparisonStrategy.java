@@ -14,5 +14,20 @@ public class HtmlComparisonStrategy implements ComparisonStrategy {
     {
         return oldContent.equals(newContent);
     }
+    
+    @Override
+    public void printComparisonDetails(String oldContent, String newContent) 
+    {
+        System.out.println("[HTML Strategy] Full HTML content changed:");
+        
+        System.out.println("Old content: ");
+        
+        System.out.println(oldContent);
+        
+        System.out.println("New content: ");
+        
+        System.out.println(newContent);
+    }
+
 }
 

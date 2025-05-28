@@ -15,4 +15,15 @@ public class SizeComparisonStrategy implements ComparisonStrategy {
     {
         return oldContent.length() == newContent.length();
     }
+    
+    @Override
+    public void printComparisonDetails(String oldContent, String newContent) 
+    {
+        System.out.println("[Size Strategy] Size changed:");
+        
+        System.out.println("Old size: " + oldContent.length() + " characters");
+        
+        System.out.println("New size: " + newContent.length() + " characters");
+    }
+
 }

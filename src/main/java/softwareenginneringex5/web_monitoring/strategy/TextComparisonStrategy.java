@@ -16,5 +16,20 @@ public class TextComparisonStrategy implements ComparisonStrategy {
     {
         return Jsoup.parse(oldContent).text().equals(Jsoup.parse(newContent).text());
     }
+    
+    @Override
+    public void printComparisonDetails(String oldContent, String newContent) 
+    {
+        System.out.println("[Text Strategy] Visible text content: ");
+        
+        System.out.println("Old text: ");
+        
+        System.out.println(org.jsoup.Jsoup.parse(oldContent).text());
+        
+        System.out.println("New text: ");
+        
+        System.out.println(org.jsoup.Jsoup.parse(newContent).text());
+    }
+
 }
 

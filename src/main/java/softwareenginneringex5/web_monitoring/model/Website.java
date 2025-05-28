@@ -57,45 +57,15 @@ public class Website implements Subject
     public boolean hasChangedSinceLastCheck() 
     {
         String newContent = fetchContentFromUrl();
-        
 
         boolean changed = !comparisonStrategy.isEqual(this.lastContent, newContent);
 
-        //Ensuring that text comparision is always print out the content
-        if (comparisonStrategy instanceof TextComparisonStrategy) 
-        {
-            System.out.println("[Text Strategy] Visible text content: ");
-            
-            System.out.println("Old text: ");
-            System.out.println(org.jsoup.Jsoup.parse(this.lastContent).text());
-            
-            System.out.println("New text: ");
-            System.out.println(org.jsoup.Jsoup.parse(newContent).text());
-        }
+        // Always show comparison details via strategy
+        comparisonStrategy.printComparisonDetails(this.lastContent, newContent);
 
         if (changed) 
         {
             System.out.println("Website has changed!");
-
-            if (comparisonStrategy instanceof HtmlComparisonStrategy) 
-            {
-                System.out.println("[HTML Strategy] Full HTML content changed: ");
-                
-                System.out.println("Old content: ");
-                System.out.println(this.lastContent);
-                
-                System.out.println("New content: ");
-                System.out.println(newContent);
-
-            } 
-            else if (comparisonStrategy instanceof SizeComparisonStrategy)
-            {
-                System.out.println("[Size Strategy] Size changed: ");
-                
-                System.out.println("Old size: " + this.lastContent.length() + " characters");
-                
-                System.out.println("New size: " + newContent.length() + " characters");
-            }
 
             this.lastContent = newContent;
             notifyObservers("Website " + url + " has been updated.");
@@ -105,6 +75,7 @@ public class Website implements Subject
         System.out.println("Nothing changed!!!");
         return false;
     }
+
 
     public String fetchContentFromUrl() 
     {
