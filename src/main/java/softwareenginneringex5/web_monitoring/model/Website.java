@@ -1,8 +1,12 @@
 package softwareenginneringex5.web_monitoring.model;
 
-import softwareenginneringex5.web_monitoring.observer.*;
+import softwareenginneringex5.web_monitoring.observer.Observers;
+import softwareenginneringex5.web_monitoring.observer.Subject;
 
-import softwareenginneringex5.web_monitoring.strategy.*;
+import softwareenginneringex5.web_monitoring.strategy.ComparisonStrategy;
+import softwareenginneringex5.web_monitoring.strategy.HtmlComparisonStrategy;
+import softwareenginneringex5.web_monitoring.strategy.SizeComparisonStrategy;
+import softwareenginneringex5.web_monitoring.strategy.TextComparisonStrategy;
 
 import java.util.*;
 

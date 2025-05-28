@@ -1,6 +1,7 @@
 package softwareenginneringex5.web_monitoring.model;
 
-import softwareenginneringex5.web_monitoring.notifier.*;
+import softwareenginneringex5.web_monitoring.notifier.Notifier;
+
 import softwareenginneringex5.web_monitoring.observer.Observers;
 
 public class Subscription implements Observers

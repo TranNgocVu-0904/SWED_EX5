@@ -1,10 +1,16 @@
 package softwareenginneringex5.web_monitoring;
 
-import softwareenginneringex5.web_monitoring.model.*;
-import softwareenginneringex5.web_monitoring.notifier.*;
-import softwareenginneringex5.web_monitoring.engine.*;
+import softwareenginneringex5.web_monitoring.model.Subscription;
+import softwareenginneringex5.web_monitoring.model.User;
+import softwareenginneringex5.web_monitoring.model.Website;
 
-import softwareenginneringex5.web_monitoring.strategy.*;
+import softwareenginneringex5.web_monitoring.notifier.EmailNotifier;
+import softwareenginneringex5.web_monitoring.notifier.SMSNotifier;
+
+import softwareenginneringex5.web_monitoring.engine.MonitorEngine;
+
+import softwareenginneringex5.web_monitoring.strategy.ComparisonStrategy;
+import softwareenginneringex5.web_monitoring.strategy.ComparisonStrategyFactory;
 
 import java.util.*;
 
