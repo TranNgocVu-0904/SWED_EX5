@@ -7,6 +7,7 @@ import java.util.*;
 public class MonitorEngine
 {
     private List<Website> websites;
+    int fileIndex = 0;
 
     public MonitorEngine(List<Website> websites) 
     {
@@ -16,14 +17,17 @@ public class MonitorEngine
     public void checkWebsites()
     {
         System.out.println("Checking websites for updates...");
-
+       
         for (Website site : websites) 
         {            
             if (site.hasChangedSinceLastCheck()) // If changed, Website will automatically notifyObservers()
             {
                 System.out.println("Website " + site.getUrl() + " has changed!");
                 
-                site.saveContentToFile("updated_" +  site.getUrl() + ".html");
+                site.saveContentToFile("updated_" +  fileIndex + ".html");
+                
+                fileIndex++;
+                
             } 
             else 
             {
