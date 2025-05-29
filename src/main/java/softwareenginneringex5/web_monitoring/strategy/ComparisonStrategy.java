@@ -11,5 +11,7 @@ package softwareenginneringex5.web_monitoring.strategy;
 public interface ComparisonStrategy 
 {
     boolean isEqual(String oldContent, String newContent);
+    
+    void printComparisonDetails(String oldContent, String newContent);
 }
 

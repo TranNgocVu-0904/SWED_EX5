@@ -22,7 +22,7 @@ public class Main {
         Website w1 = new Website("https://youtube.com", textStrategy);
         
         ComparisonStrategy htmlStrategy =  ComparisonStrategyFactory.getStrategy("size");
-        Website w2 = new Website("https://youtube.com", htmlStrategy);
+        Website w2 = new Website("https://google.com", htmlStrategy);
         
         // Save website content to html file
         w1.saveContentToFile("google.html");
